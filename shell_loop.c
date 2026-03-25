@@ -1,6 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "shell_loop.h"
 #include "read_line.h"
 #include "parse_line.h"
-void command_loop() {
+#include "shell_builtins.h"
+void command_loop(void) {
     char *line;
     char **args;
     int status;
