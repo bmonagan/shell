@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "launch.h"
+#include "shell_builtins.h"
 
 /*
   Function Declarations for builtin shell commands:
@@ -62,4 +64,19 @@ int lsh_help(char **args)
 int lsh_exit(char **args)
 {
   return 0;
+}
+
+int execute(char **args)
+{
+  int i;
+
+  if (args[0] == NULL)
+    return 1;
+
+  for (i = 0; i < lsh_num_builtins(); i++) {
+    if (strcmp(args[0], builtin_str[i]) == 0)
+      return (*builtin_func[i])(args);
+  }
+
+  return launch(args);
 }
